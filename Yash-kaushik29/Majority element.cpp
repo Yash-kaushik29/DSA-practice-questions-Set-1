@@ -1,3 +1,5 @@
+// Approach 1 : O(N) space 
+
 class Solution{
   public:
      // Function to find majority element in the array
@@ -22,3 +24,25 @@ class Solution{
         
     }
 };
+
+
+// Approach 2: constant space
+
+int count = 0;
+int element;
+
+for(auto num: nums) {
+   if(count == 0) {
+       count++;
+       element = num;
+   }
+
+   else  {
+        if(num == element)
+           count++;
+
+        else 
+           count--; 
+    } 
+ }
+return element;
