@@ -1,4 +1,7 @@
-int index = -1;
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+        int index = -1;
         int n = nums.size();
 
         for(int i=n-1; i>0; i--) {
@@ -21,3 +24,5 @@ int index = -1;
             swap(nums[index-1],nums[prev]);
             reverse(nums.begin()+index,nums.end());
         }
+    }
+};
