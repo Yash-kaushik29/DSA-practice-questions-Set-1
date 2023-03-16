@@ -3,56 +3,38 @@ public:
 
     bool isPossible(int n, int k, vector<int> &stalls, int mid)  {
         
-        int cow=1;
+        int cows=1;
         int last=stalls[0];
         
-        for(int i=0; i<stalls.size(); i++)  {
-            
-            if(stalls[i]-last>=mid) {
-                
-            cow++;
-            if(cow==k)  {
-            return true;
-            }
-            last=stalls[i];
+        for(int i=1; i<stalls.size(); i++) {
+            if(stalls[i]-last >= mid) {
+                cows++;
+                if(cows == k)  return true;
+                last = stalls[i];
             }
         }
         return false;
     }
 
     int solve(int n, int k, vector<int> &stalls) {
-    
-        // Write your code here
-        
-        if(n<k)  {
-            return 0;
-        }
-        
-        else  {
-            
-        int s=0;
-        int ans=-1;
-        
         sort(stalls.begin(),stalls.end());
         
+        int ans=-1;
+        int s=0;
         int e=stalls[n-1];
-        int mid=s+(e-s)/2;
         
-        while(s<=e)  {
+        while(s<=e) {
+            int mid = s+(e-s)/2;
             
-            if(isPossible(n,k,stalls,mid))  {
-                
+            if(isPossible(stalls,k,mid)) {
                 ans=mid;
                 s=mid+1;
             }
-            else  {
-                
+            else {
                 e=mid-1;
             }
-            
-            mid=s+(e-s)/2;
         }
+        
         return ans;
-    }
   }
 };
