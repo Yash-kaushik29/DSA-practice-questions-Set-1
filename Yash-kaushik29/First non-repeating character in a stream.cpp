@@ -2,18 +2,32 @@ class Solution {
 	public:
 		string FirstNonRepeating(string A){
 		    // Code here
-		    queue<int>q;
-		    map<char,int>m;
+		    unordered_map<char,int> mp;
+		    queue<char> q;
 		    string ans="";
-		    for(int i=0;i<A.size();i++){
-		        m[A[i]]++;
-		        if(m[A[i]]==1){
-		            q.push(A[i]);
-		            ans.push_back(q.front());
-		        }else{
-		            while(!q.empty() && m[q.front()]>1) q.pop();
-		            if(q.empty()) ans.push_back('#');
-		            else ans.push_back(q.front());
+		    
+		    for(int i=0; i<A.size(); i++) {
+		        char ch=A[i];
+		        
+		        // increase count
+		        mp[ch]++;
+		        // push in queue
+		        q.push(ch);
+		        
+		        while(!q.empty()) {
+		            //repeating character
+		            if(mp[q.front()] > 1)
+		              q.pop();
+		              
+		            //non-repeating character
+		            else {
+		                ans.push_back(q.front());
+		                break;
+		            }
+		        }
+		        //Non-repeating character is not present in queue
+		        if(q.empty()) {
+		            ans.push_back('#');
 		        }
 		    }
 		    return ans;
