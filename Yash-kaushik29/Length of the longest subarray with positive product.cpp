@@ -3,35 +3,40 @@ class Solution {
         // Function to return the length of the
         //longest subarray with ppositive product
         int maxLength(vector<int> &arr,int n){
-           //code here
+           int maxlen=0, len=0, product=1;
            
-           int length = 0;
-           int temp = 0;
-           int prod = 1;
-           
-           // Traversing in forward direction
-           for(int i=0;i<n;i++){
-               if(arr[i]==0){
-                    temp=0;     prod=1;     continue;
+           for(int i=0; i<n; i++) {
+               
+               // if element is zero, reset len to 0 and product to 1 (new subarray)
+               if(arr[i] == 0) {
+                   len=0;
+                   product=1;
+                   continue;
                }
-               if(arr[i]>0) prod*=1;
-               else prod*=-1;
-               temp++;
-               if(prod>0)   length = max(length,temp);
+               
+               if(arr[i] < 0) product*=-1;
+               len++;
+               
+               // update length only when product is positive
+               if(product > 0) maxlen = max(maxlen, len);
            }
-           temp=0;
-           prod=1;
            
-           // Traversing in backward direction 
-           for(int i=n-1;i>=0;i--){
-               if(arr[i]==0){       
-                    temp=0; prod=1; continue;
+           len=0; product=1;
+           
+           for(int i=n-1; i>=0; i--) {
+               
+               if(arr[i] == 0) {
+                   len=0;
+                   product=1;
+                   continue;
                }
-               if(arr[i]>0) prod*=1;
-               else prod*=-1;
-               temp++;
-               if(prod>0)   length = max(length,temp);
+               
+               if(arr[i] < 0) product*=-1;
+               len++;
+               
+               if(product > 0) maxlen = max(maxlen, len);
            }
-           return length;
+           
+           return maxlen;
         }
 };
