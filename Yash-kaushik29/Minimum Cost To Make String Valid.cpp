@@ -1,39 +1,35 @@
 #include <bits/stdc++.h> 
 int findMinimumCost(string str) {
-  // Write your code here
-  if(str.length() & 1)
-   return -1;
+  
+  int n = str.length();
+  if(n & 1) return -1;
 
-  stack<char> s;
-  for(int i=0; i<str.length(); i++) {
-    char ch = str[i];
+  stack<char> st;
 
-    if(ch == '{') {
-      s.push(ch);
+  for(int i=0; i<n; i++) {
+    if(str[i] == '{') {
+      st.push(str[i]);
     } 
     else {
-      if (!s.empty() && s.top() == '{') {
-        s.pop();
-      } 
+      if (!st.empty() && st.top() == '{') {
+        st.pop();
+      }
       else {
-        s.push(ch);
+        st.push(str[i]);
       }
     }
-  }
+  } 
 
   // Stack now contain only invalid expression
 
-    int a=0,b=0;
-    while(!s.empty()) {
-      if(s.top() == '{') {
-        a++;
-      }
-      else {
-        b++;
-      }
-      s.pop();
-    }
-    
-    int ans = (a+1)/2 + (b+1)/2;
-    return ans; 
+  int a=0, b=0;
+
+  while(!st.empty()) {
+    if(st.top() == '{') a++;
+    else b++;
+
+    st.pop();
+  }
+
+  return (a+1)/2 + (b+1)/2;    
 }

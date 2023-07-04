@@ -2,7 +2,7 @@ typedef long long ll;
 
 class Solution {
 public:
-    bool check(vector<int> &time, ll mid, ll t){
+    bool isPossible(vector<int> &time, ll mid, ll t){
         ll trips = 0;
         for(auto &i:time){
             trips += (mid/i);
@@ -18,11 +18,11 @@ public:
         ll l = (ll)time[0];
         ll r = (ll)time[n-1]*(ll)totalTrips;
 
-        while(l<r) {
+        while(l <= r) {
             ll mid = l + (r-l)/2;
 
-            if(check(time, mid, (ll)totalTrips)){
-                r = mid;
+            if(isPossible(time, mid, (ll)totalTrips)){
+                r = mid-1;
             }
             else{
                 l = mid+1;
